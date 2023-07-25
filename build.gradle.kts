@@ -26,6 +26,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	runtimeOnly("mysql:mysql-connector-java:8.0.33")
 
+	implementation("com.github.dozermapper:dozer-core:6.5.2")
+
+	implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

@@ -1,6 +1,8 @@
 package br.com.erudio.services
 
+import br.com.erudio.data.vo.v1.PersonVO
 import br.com.erudio.exceptions.ResourceNotFoundException
+import br.com.erudio.mapper.DozerMapper
 import br.com.erudio.model.Person
 import br.com.erudio.repository.PersonRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,34 +20,41 @@ class PersonService {
     private val counter = AtomicLong()
     private val logger = Logger.getLogger(PersonService::class.java.name)
 
-    fun findAll(): List<Person> {
+    fun findAll(): List<PersonVO> {
         logger.info("find all person")
-        return repository.findAll()
+        val persons = repository.findAll()
+        return DozerMapper.parseListObjects(persons, PersonVO::class.java)
     }
 
-    fun findById(id: Long): Person {
+    fun findById(id: Long): PersonVO {
         logger.info("find one person")
-        return repository.findById(id)
+        val person = repository.findById(id)
             .orElseThrow { ResourceNotFoundException("No records found for this ID!") }
+
+        return DozerMapper.parseObject(person, PersonVO::class.java)
     }
 
-    fun create(person: Person): Person {
+    fun create(personVO: PersonVO): PersonVO {
         logger.info("create one person")
-        return repository.save(person)
+
+        val entity = DozerMapper.parseObject(personVO, Person::class.java)
+
+        return DozerMapper.parseObject(repository.save(entity), PersonVO::class.java)
     }
 
-    fun update(person: Person): Person {
-        val entity = repository.findById(person.id)
+    fun update(personVO: PersonVO): PersonVO {
+        val entity = repository.findById(personVO.id)
             .orElseThrow { ResourceNotFoundException("No records found for this ID!") }
 
-        entity.firstName = person.firstName
-        entity.lastName = person.lastName
-        entity.address = person.address
-        entity.gender = person.gender
+        entity.firstName = personVO.firstName
+        entity.lastName = personVO.lastName
+        entity.address = personVO.address
+        entity.gender = personVO.gender
 
         logger.info("update one person")
 
-        return repository.save(entity)
+        return DozerMapper.parseObject(repository.save(entity), PersonVO::class.java)
+
     }
 
     fun delete(id: Long) {
