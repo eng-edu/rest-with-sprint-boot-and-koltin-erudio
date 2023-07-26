@@ -30,6 +30,9 @@ dependencies {
 
 	implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
 
+	implementation("org.flywaydb:flyway-core:9.0.0")
+	implementation("org.flywaydb:flyway-mysql:9.0.0")
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

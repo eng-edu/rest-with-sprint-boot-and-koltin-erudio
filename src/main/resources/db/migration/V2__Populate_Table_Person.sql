@@ -1,0 +1,1 @@
+INSERT INTO `person` VALUES (5,'Rua L, 2037, Viva Cidade','Eduardo','M','Lima'),(6,'Rua L, 2037, Viva Cidade','Maria','M','Lima'),(7,'Rua L, 2037, Viva Cidade','Joana','M','Lima'),(8,'Rua L, 2037, Viva Cidade','Francisca','M','Lima');
